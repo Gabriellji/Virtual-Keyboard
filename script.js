@@ -55,7 +55,7 @@ const Keyboard = {
 	_createKeys() {
         const fragment = document.createDocumentFragment();
         const keyLayout = [
-            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspase",
+            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
             "Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "DEL",
             "Caps Lock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "`", "ENTER",
             "Shift", "\\", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "↑", "Shift",
@@ -63,7 +63,7 @@ const Keyboard = {
         ];
 
         const dataCode = [
-            "Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspase",
+            "Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace",
             "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", "Delete",
             "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter",
             "ShiftLeft", "Backslash", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight",
@@ -90,18 +90,18 @@ const Keyboard = {
 
 
             switch (key) {
-                case "Backspase":
+                case "Backspace":
                     keyElement.classList.add("keyboard__key--wide");
                     keyElement.innerHTML = createIconHTML("backspace");
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        // this._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     });
 
                     keyElement.addEventListener("keydown", () => {
                         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        // this._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     });
 
                     break;
@@ -128,7 +128,7 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value += "\n";
-                        // this._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     });
 
                     break;
@@ -138,7 +138,7 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value += " ";
-                        // this._triggerEvent("oninput");
+                        this._triggerEvent("oninput");
                     });
 
                   
@@ -206,7 +206,34 @@ const Keyboard = {
 	}
 };
 
+// const createIconHTML = (icon_name) => {
+//     return `<i class="material-icons">${icon_name}</i>`;
+// };
+
+
 document.addEventListener("keydown", (event) => {
+    //    let keys = document.querySelectorAll(".keyboard__key");
+    //    let capsLock = document.querySelector(".keyboard__key--activatable");
+     let textArea = document.querySelector(".use-keyboard-iput");
+    if (event.key === "CapsLock") {
+        // document.querySelectorAll(".keyboard__key").classList.add("keyboard__key--wide", "keyboard__key--activatable");
+        // document.querySelectorAll(".keyboard__key").innerHTML = createIconHTML("keyboard_capslock");
+        // eslint-disable-next-line no-console
+        console.log("yo brother");
+        const array = document.querySelectorAll(".keyboard__key");
+        // this.properties.capsLock = !this.properties.capsLock;
+        // capsLock.value = false;
+        // capsLock.value = !capsLock.value;
+        array.forEach.call(array, (key) => {
+        const elem = key;
+          elem.innerHTML = elem.textContent === elem.textContent.toUpperCase() 
+            ? elem.textContent.toLowerCase()
+            : elem.textContent.toUpperCase();
+        });
+      } else if (event.key === "Backspase") {
+        textArea.value = textArea.value.substring(0, textArea.value.length - 1);
+      }
+   
     let pressedKey = document.querySelector(`button[data-code = ${event.code}]`);
     pressedKey.classList.add("keyboard__key--dark");
 });
