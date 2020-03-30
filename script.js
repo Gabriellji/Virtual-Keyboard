@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
@@ -31,7 +32,7 @@ const Keyboard = {
         this.elements.keysContainer = document.createElement("div");
 
         // Setup main elements
-        this.elements.main.classList.add("keyboard", "keyboard--hidden");
+        this.elements.main.classList.add("keyboard", "1keyboard--hidden");
         this.elements.keysContainer.classList.add("keyboard__keys");
         this.elements.keysContainer.appendChild(this._createKeys());
 
@@ -87,6 +88,7 @@ const Keyboard = {
             keyElement.setAttribute("type", "button");
             keyElement.classList.add("keyboard__key");
 
+
             switch (key) {
                 case "Backspase":
                     keyElement.classList.add("keyboard__key--wide");
@@ -94,7 +96,12 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        this._triggerEvent("oninput");
+                        // this._triggerEvent("oninput");
+                    });
+
+                    keyElement.addEventListener("keydown", () => {
+                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                        // this._triggerEvent("oninput");
                     });
 
                     break;
@@ -108,6 +115,11 @@ const Keyboard = {
                         keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
                     });
 
+                    keyElement.addEventListener("keydown", () => {
+                        this._toggleCapsLock();
+                        keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                    });
+     
                     break;
 
                 case "ENTER":
@@ -116,7 +128,7 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value += "\n";
-                        this._triggerEvent("oninput");
+                        // this._triggerEvent("oninput");
                     });
 
                     break;
@@ -126,20 +138,21 @@ const Keyboard = {
 
                     keyElement.addEventListener("click", () => {
                         this.properties.value += " ";
-                        this._triggerEvent("oninput");
+                        // this._triggerEvent("oninput");
                     });
 
+                  
                     break;
-                case "done":
-                    keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
-                    keyElement.innerHTML = createIconHTML("scheck_circle");
+                // case "done":
+                //     keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
+                //     keyElement.innerHTML = createIconHTML("scheck_circle");
 
-                    keyElement.addEventListener("click", () => {
-                        this.close();
-                        this._triggerEvent("onclose");
-                    });
+                //     keyElement.addEventListener("click", () => {
+                //         this.close();
+                //         this._triggerEvent("onclose");
+                //     });
 
-                    break;
+                //     break;
                 default:
                         keyElement.textContent = key.toLowerCase();
 
@@ -147,6 +160,7 @@ const Keyboard = {
                             this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                             this._triggerEvent("oninput");
                         });
+                        
 
                     break;
             }
@@ -191,6 +205,16 @@ const Keyboard = {
         this.elements.main.classList.add("keyboard--hidden");
 	}
 };
+
+document.addEventListener("keydown", (event) => {
+    let pressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+    pressedKey.classList.add("keyboard__key--dark");
+});
+  
+document.addEventListener("keyup", (event) => {
+    let unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+    unPressedKey.classList.remove("keyboard__key--dark");
+});
 
 window.addEventListener("DOMContentLoaded", function () {
     Keyboard.init();
