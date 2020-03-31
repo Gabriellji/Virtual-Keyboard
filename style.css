@@ -1,8 +1,8 @@
 .keyboard {
     position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    left: 300px;
+    bottom: 200px;
+    width: 1000px;
     padding: 5px 0;
     background: #270453;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
@@ -15,6 +15,14 @@
 .keyboard--hidden {
     bottom: -100%;
 
+}
+
+.use-keyboard-input {
+    position: absolute;
+    top: 130px;
+    width: 1000px;
+    left: 18%;
+    height: 200px;
 }
 
 .keyboard__keys {

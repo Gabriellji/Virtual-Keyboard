@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-empty */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-underscore-dangle */
@@ -24,6 +27,10 @@ const Keyboard = {
 	properties: {
 		value: "",
 		capsLock: false
+    },
+    
+    lang: {
+		value: ""
 	},
 
 	init() {
@@ -58,7 +65,15 @@ const Keyboard = {
             "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
             "Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "DEL",
             "Caps Lock", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "`", "ENTER",
-            "Shift", "\\", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "↑", "Shift",
+            "Shift", "\\", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "Shift", "↑", "/", 
+            "Ctrl", "Win", "Alt", "space", "Alt", "Ctrl", "←", "↓", "→"
+        ];
+
+        const keyLayoutRus = [
+            "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "Backspace",
+            "Tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", "\\", "DEL",
+            "Caps Lock", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", "ENTER",
+            "Shift", "\\", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", "Shift", "↑", "/", 
             "Ctrl", "Win", "Alt", "space", "Alt", "Ctrl", "←", "↓", "→"
         ];
 
@@ -78,7 +93,7 @@ const Keyboard = {
 
         keyLayout.forEach((key, index) => {
             const keyElement = document.createElement("button");
-            const insertLineBreak = ["Backspase", "DEL", "ENTER", "Ctrl"].indexOf(key) !== -1;
+            const insertLineBreak = ["Backspase", "DEL", "ENTER", "/"].indexOf(key) !== -1;
 
             // Add attributes/classes
 
@@ -94,15 +109,10 @@ const Keyboard = {
                     keyElement.classList.add("keyboard__key--wide");
                     keyElement.innerHTML = createIconHTML("backspace");
 
-                    keyElement.addEventListener("click", () => {
-                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        this._triggerEvent("oninput");
-                    });
-
-                    keyElement.addEventListener("keydown", () => {
-                        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-                        this._triggerEvent("oninput");
-                    });
+                    // keyElement.addEventListener("click", () => {
+                    //     this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                    //     this._triggerEvent("oninput");
+                    // });
 
                     break;
 
@@ -153,6 +163,7 @@ const Keyboard = {
                 //     });
 
                 //     break;
+                
                 default:
                         keyElement.textContent = key.toLowerCase();
 
@@ -164,6 +175,35 @@ const Keyboard = {
 
                     break;
             }
+
+            // keyElement.textContent = key.toLowerCase();
+
+            document.addEventListener("keydown", () => {
+                if (event.code === "ShiftRight") {
+                    console.log("lol");
+                    keyLayout.splice(0, Infinity, ...keyLayoutRus);
+                    keyElement.innerText = keyLayoutRus[index];   
+                } else {
+                    keyElement.innerText = keyLayout[index];
+                }
+                
+                if (event.code === "Backspace") {
+                            this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                } else if (event.code === "CapsLock") {
+                    this._toggleCapsLock();
+                        keyElement.classList.toggle("keyboard__key--active", this.properties.capsLock);
+                } else if (event.code === "Enter") {
+                    this.properties.value += "\n";
+                } else if (event.code === "Space") {
+                    this.properties.value += " ";
+                } 
+                let pressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+                pressedKey.classList.add("keyboard__key--dark");
+            });
+            document.addEventListener("keyup", () => {
+                let unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+                unPressedKey.classList.remove("keyboard__key--dark");
+            });
 
             fragment.appendChild(keyElement);
 
@@ -203,7 +243,8 @@ const Keyboard = {
         this.eventHandlers.oninput = oninput;
         this.eventHandlers.onclose = onclose;
         this.elements.main.classList.add("keyboard--hidden");
-	}
+    }
+
 };
 
 // const createIconHTML = (icon_name) => {
@@ -211,37 +252,64 @@ const Keyboard = {
 // };
 
 
-document.addEventListener("keydown", (event) => {
-    //    let keys = document.querySelectorAll(".keyboard__key");
-    //    let capsLock = document.querySelector(".keyboard__key--activatable");
-     let textArea = document.querySelector(".use-keyboard-iput");
-    if (event.key === "CapsLock") {
-        // document.querySelectorAll(".keyboard__key").classList.add("keyboard__key--wide", "keyboard__key--activatable");
-        // document.querySelectorAll(".keyboard__key").innerHTML = createIconHTML("keyboard_capslock");
-        // eslint-disable-next-line no-console
-        console.log("yo brother");
-        const array = document.querySelectorAll(".keyboard__key");
-        // this.properties.capsLock = !this.properties.capsLock;
-        // capsLock.value = false;
-        // capsLock.value = !capsLock.value;
-        array.forEach.call(array, (key) => {
-        const elem = key;
-          elem.innerHTML = elem.textContent === elem.textContent.toUpperCase() 
-            ? elem.textContent.toLowerCase()
-            : elem.textContent.toUpperCase();
-        });
-      } else if (event.key === "Backspase") {
-        textArea.value = textArea.value.substring(0, textArea.value.length - 1);
-      }
-   
-    let pressedKey = document.querySelector(`button[data-code = ${event.code}]`);
-    pressedKey.classList.add("keyboard__key--dark");
-});
+// const Keyboard = {
+// 	// eslint-disable-next-line no-tabs
+// 	elements: {
+// 		main: null,
+// 		keysContainer: null,
+// 		keys: []
+// 	},
+
+// 	eventHandlers: {
+// 		oninput: null,
+// 		onclose: null
+// 	},
+
+// 	properties: {
+// 		value: "",
+// 		capsLock: false
+// 	},
+
+
+// document.addEventListener("keydown", (event) => {
+//        let keys = document.querySelector(".keyboard__key");
+//     //    let capsLock = document.querySelector(".keyboard__key--activatable");
+//      let textArea = document.querySelector(".use-keyboard-iput");
+//     if (event.key === "CapsLock") {
+//         // document.querySelectorAll(".keyboard__key").classList.add("keyboard__key--wide", "keyboard__key--activatable");
+//         // document.querySelectorAll(".keyboard__key").innerHTML = createIconHTML("keyboard_capslock");
+//         const array = document.querySelectorAll(".keyboard__key");
+//         // this.properties.capsLock = !this.properties.capsLock;
+       
+//         // capsLock.value = !capsLock.value;
+//         array.forEach.call(array, (key) => {
+//         const elem = key;
+//         //   elem.innerHTML = elem.textContent === elem.textContent.toUpperCase() 
+//         //     ? elem.textContent.toLowerCase()
+//         //     : elem.textContent.toUpperCase();
+//     if (elem.childElementCount === 0) {
+//         // const properties = {
+//         //     value: "",
+//         //     capsLock: false
+//         // };
+//         elem.textContent = this.properties.capsLock ? elem.textContent.toUpperCase() : elem.textContent.toLowerCase();
+//   }
+//         });
+//       } else if (event.key === "Backspase") {
+//         textArea.value = textArea.value.substring(0, textArea.value.length - 1);
+//       }
   
-document.addEventListener("keyup", (event) => {
-    let unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
-    unPressedKey.classList.remove("keyboard__key--dark");
-});
+   
+//     let pressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+//     pressedKey.classList.add("keyboard__key--dark");
+// });
+  
+// document.addEventListener("keyup", (event) => {
+//     let unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
+//     unPressedKey.classList.remove("keyboard__key--dark");
+// });
+
+// }
 
 window.addEventListener("DOMContentLoaded", function () {
     Keyboard.init();
