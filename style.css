@@ -1,7 +1,15 @@
+.textarea {
+    position: absolute;
+    width: 1000px;
+    left: 180px;
+    height: 200px;
+    background: yellow;
+}
+
 .keyboard {
     position: fixed;
-    left: 300px;
-    bottom: 200px;
+    left: 185px;
+    bottom: 115px;
     width: 1000px;
     padding: 5px 0;
     background: #270453;
@@ -19,9 +27,9 @@
 
 .use-keyboard-input {
     position: absolute;
-    top: 130px;
+    /* top: 130px; */
     width: 1000px;
-    left: 18%;
+    left: 180px;
     height: 200px;
 }
 
