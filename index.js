@@ -14,11 +14,6 @@ const Keyboard = {
         
     },
 
-    // keys = { en: keyLayout,
-    //     ru: keyLayoutRus
-
-    // },
-
 	eventHandlers: {
 		oninput: null,
 		onclose: null
@@ -47,9 +42,9 @@ const Keyboard = {
        
 
         // Setup main elements
-        this.elements.textareaContainer.classList.add('.textarea');
+        this.elements.textareaContainer.classList.add('textarea');
         this.elements.main.classList.add('keyboard', '1keyboard--hidden');
-        this.elements.textarea.classList.add('.use-keyboard-input');
+        this.elements.textarea.classList.add('use-keyboard-input');
         this.elements.keysContainer.classList.add('keyboard__keys');
         this.elements.keysContainer.appendChild(this._createKeys());
 
