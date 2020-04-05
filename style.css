@@ -65,6 +65,7 @@ body {
     padding: 0;
     -webkit-tap-highlight-color: transparent;
     position: relative;
+    transition: all 0.25s linear;
 }
 
 .keyboard__key:active {
@@ -73,6 +74,9 @@ body {
 
 .keyboard__key--wide {
     width: 12%;
+}
+.keyboard__key--tight {
+    width: 8%;
 }
 .keyboard__key--extra-wide {
     width: 36%;
@@ -96,4 +100,33 @@ body {
 
 .keyboard__key--dark {
     background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-size: 1.40rem;
+    border-radius: 8px;
+    /* color: #afaeae; */
+    animation: blur 1s ease-out;
+    text-shadow: 0px 0px 15px #fff, 0px 0px 17px #fff;
 }
+
+@keyframes blur {
+    from {
+      text-shadow:0px 0px 10px #fff,
+        0px 0px 10px #fff, 
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 50px #fff,
+        0px 0px 50px #fff,
+        0px 0px 50px #7B96B8,
+        0px 0px 150px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px -10px 100px #7B96B8,
+        0px -10px 100px #7B96B8;
+    }
+  }

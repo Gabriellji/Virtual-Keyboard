@@ -177,6 +177,13 @@ const Keyboard = {
                       
                     break;
                 case 'Shift':
+                        keyElement.classList.add('keyboard__key--tight');
+                        keyElement.addEventListener('click', (event) => {
+                            event.preventDefault();
+                        });
+    
+                      
+                    break;
                 case 'Ctrl':
                 case 'Alt':
                 case 'Win':
@@ -185,9 +192,20 @@ const Keyboard = {
                     });
 
                     break;
-                
+
+                case '↑':
+                case '←':
+                case '↓':
+                case '→':
+                    // keyElement.classList.add('keyboard__key--tight');
+                    keyElement.addEventListener('click', () => {
+                        event.preventDefault();
+                    });
+        
+                    break;
                 default:
                         keyElement.textContent = key.toLowerCase();
+                
 
                         keyElement.addEventListener('click', () => {
                             this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
