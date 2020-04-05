@@ -1,5 +1,7 @@
-if (localStorage.getItem('lang') === undefined) 
-localStorage.setItem('lang', 'en');    
+if (localStorage.getItem('lang') === null) {
+localStorage.setItem('lang', 'en'); 
+}
+   
 
 const Keyboard = {
 
@@ -10,7 +12,12 @@ const Keyboard = {
         textarea: null,
         keys: []
         
-	},
+    },
+
+    // keys = { en: keyLayout,
+    //     ru: keyLayoutRus
+
+    // },
 
 	eventHandlers: {
 		oninput: null,
