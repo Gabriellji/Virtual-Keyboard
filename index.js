@@ -207,9 +207,16 @@ const Keyboard = {
                         keyElement.textContent = key.toLowerCase();
                 
 
-                        keyElement.addEventListener('click', () => {
+                        keyElement.addEventListener('mousedown', () => {
+                            keyElement.classList.add('keyboard__key--dark');
                             this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                             this._triggerEvent('oninput');
+                        });
+
+                        keyElement.addEventListener('mouseup', () => {
+                            keyElement.classList.remove('keyboard__key--dark');
+                            // this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+                            // this._triggerEvent('oninput');
                         });
                         
 
