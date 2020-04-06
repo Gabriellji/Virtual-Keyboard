@@ -1,5 +1,5 @@
 if (localStorage.getItem('lang') === null) {
-  localStorage.setItem('lang', 'en');
+  localStorage.getItem('lang', 'en');
 }
 
 const Keyboard = {
@@ -36,6 +36,7 @@ const Keyboard = {
     this.elements.main.classList.add('keyboard', '1keyboard--hidden');
     this.elements.textarea.classList.add('use-keyboard-input');
     this.elements.keysContainer.classList.add('keyboard__keys');
+    this.elements.textarea.setAttribute('placeholder', 'Hello stranger and Welcom to use Virtual Keyboard! Press ALT SHIFT combination to switch beetwen languages...');
     this.elements.keysContainer.appendChild(this.createKeys());
     this.elements.keys = this.elements.keysContainer.querySelectorAll('.keyboard__key');
 
@@ -88,89 +89,89 @@ const Keyboard = {
     ];
 
     const enShift = {
-      'Backquote': '~',
-      'Digit1': '!',
-      'Digit2': '@',
-      'Digit3': '#',
-      'Digit4': '$',
-      'Digit5': '%',
-      'Digit6': '^',
-      'Digit7': '&',
-      'Digit8': '*',
-      'Digit9': '(',
-      'Digit0': ')',
-      'Minus': '_',
-      'Equal': '+',
-      'BracketLeft': '{',
-      'BracketRight': '}',
-      'Backslash': '|',
-      'Semicolon': ':',
-      'Quote': '"',
-      'Comma': '<',
-      'Period': '>',
-      'Slash': '?',
-  };
-  
-  const ruShift = {
-      'Digit1': '!',
-      'Digit2': '"',
-      'Digit3': '№',
-      'Digit4': ';',
-      'Digit5': '%',
-      'Digit6': ':',
-      'Digit7': '?',
-      'Digit8': '*',
-      'Digit9': '(',
-      'Digit0': ')',
-      'Minus': '_',
-      'Equal': '+',
-      'Backslash': '/',
-      'Slash': ',',
-  };
+      Backquote: '~',
+      Digit1: '!',
+      Digit2: '@',
+      Digit3: '#',
+      Digit4: '$',
+      Digit5: '%',
+      Digit6: '^',
+      Digit7: '&',
+      Digit8: '*',
+      Digit9: '(',
+      Digit0: ')',
+      Minus: '_',
+      Equal: '+',
+      BracketLeft: '{',
+      BracketRight: '}',
+      Backslash: '|',
+      Semicolon: ':',
+      Quote: '"',
+      Comma: '<',
+      Period: '>',
+      Slash: '?',
+    };
 
-  const enUnShift = {
-    'Backquote': '`',
-    'Digit1': '1',
-    'Digit2': '2',
-    'Digit3': '3',
-    'Digit4': '4',
-    'Digit5': '5',
-    'Digit6': '6',
-    'Digit7': '7',
-    'Digit8': '8',
-    'Digit9': '9',
-    'Digit0': '0',
-    'Minus': '-',
-    'Equal': '=',
-    'BracketLeft': '[',
-    'BracketRight': ']',
-    'Backslash': '/',
-    'Semicolon': ';',
-    'Quote': '`',
-    'Comma': ',',
-    'Period': '.',
-    'Slash': '/',
-  };
+    const ruShift = {
+      Digit1: '!',
+      Digit2: '"',
+      Digit3: '№',
+      Digit4: ';',
+      Digit5: '%',
+      Digit6: ':',
+      Digit7: '?',
+      Digit8: '*',
+      Digit9: '(',
+      Digit0: ')',
+      Minus: '_',
+      Equal: '+',
+      Backslash: '/',
+      Slash: ',',
+    };
 
-  const ruUnShift = {
-    'Digit1': '1',
-    'Digit2': '2',
-    'Digit3': '3',
-    'Digit4': '4',
-    'Digit5': '5',
-    'Digit6': '6',
-    'Digit7': '7',
-    'Digit8': '8',
-    'Digit9': '9',
-    'Digit0': '0',
-    'Minus': '-',
-    'Equal': '=',
-    'Backslash': '/',
-    'Slash': '.',
-  }
+    const enUnShift = {
+      Backquote: '`',
+      Digit1: '1',
+      Digit2: '2',
+      Digit3: '3',
+      Digit4: '4',
+      Digit5: '5',
+      Digit6: '6',
+      Digit7: '7',
+      Digit8: '8',
+      Digit9: '9',
+      Digit0: '0',
+      Minus: '-',
+      Equal: '=',
+      BracketLeft: '[',
+      BracketRight: ']',
+      Backslash: '/',
+      Semicolon: ';',
+      Quote: '`',
+      Comma: ',',
+      Period: '.',
+      Slash: '/',
+    };
 
-  // const signs = { enShift, ruShift };
-  
+    const ruUnShift = {
+      Digit1: '1',
+      Digit2: '2',
+      Digit3: '3',
+      Digit4: '4',
+      Digit5: '5',
+      Digit6: '6',
+      Digit7: '7',
+      Digit8: '8',
+      Digit9: '9',
+      Digit0: '0',
+      Minus: '-',
+      Equal: '=',
+      Backslash: '/',
+      Slash: '.',
+    };
+
+    // const signs = { enShift, ruShift };
+
 
     // Creates HTML for an icon
     const createIconHTML = (iconName) => `<i class='material-icons'>${iconName}</i>`;
@@ -187,7 +188,7 @@ const Keyboard = {
         keyElement.innerText = keyLayout[index];
 
         keyElement.setAttribute('type', 'button');
-        keyElement.classList.add('keyboard__key');      
+        keyElement.classList.add('keyboard__key');
 
         switch (key) {
           case 'Backspace':
@@ -346,23 +347,23 @@ const Keyboard = {
         const useShift = () => {
           const entries = Object.entries(enShift);
           entries.forEach((el) => {
-              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          });
-      
-          // this._lettersUp();
-      }
-      useShift();
-    } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
-      const useShift = () => {
-        const entries = Object.entries(ruShift);
-        entries.forEach((el) => {
             document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-        });
-    
+          });
+
+          // this._lettersUp();
+        };
+        useShift();
+      } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
+        const useShift = () => {
+          const entries = Object.entries(ruShift);
+          entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
+
         // this._lettersUp();
-    }
-    useShift();
-    }
+        };
+        useShift();
+      }
 
       if (event.code === 'Tab') {
         this.textarea = document.querySelector('textarea');
@@ -389,24 +390,24 @@ const Keyboard = {
     document.addEventListener('keyup', (event) => {
       const unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
       unPressedKey.classList.remove('keyboard__key--dark');
-      if (event.code ==='ShiftLeft' && localStorage.getItem('lang') === 'en') {
+      if (event.code === 'ShiftLeft' && localStorage.getItem('lang') === 'en') {
         console.log('upp');
         // document.location.reload(true);
         const useShift = () => {
           const entries = Object.entries(enUnShift);
           entries.forEach((el) => {
-              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           });
-      }
-      useShift();
-      } else if (event.code ==='ShiftLeft' && localStorage.getItem('lang') === 'ru') {
+        };
+        useShift();
+      } else if (event.code === 'ShiftLeft' && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
           const entries = Object.entries(ruUnShift);
           entries.forEach((el) => {
-              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           });
-      }
-      useShift();
+        };
+        useShift();
       }
     });
 
@@ -414,7 +415,7 @@ const Keyboard = {
     return fragment;
   },
 
- 
+
   changeLang() {
     const lang = localStorage.getItem('lang');
     localStorage.setItem('lang', lang === 'en' ? 'ru' : 'en');
