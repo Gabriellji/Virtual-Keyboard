@@ -18,8 +18,8 @@ const Keyboard = {
     onclose: null,
   },
 
-  prop: {
-    val: '',
+  properties: {
+    value: '',
     capsLock: false,
   },
 
@@ -36,7 +36,7 @@ const Keyboard = {
     this.elements.main.classList.add('keyboard', '1keyboard--hidden');
     this.elements.textarea.classList.add('use-keyboard-input');
     this.elements.keysContainer.classList.add('keyboard__keys');
-    this.elements.textarea.setAttribute('placeholder', 'Hello stranger and Welcom to use Virtual Keyboard! Press ALT SHIFT combination to switch beetwen languages...');
+    this.elements.textarea.setAttribute('placeholder', 'Hello stranger and Welcom to use Virtual Keyboard! Press left ALT SHIFT combination to switch beetwen languages...');
     this.elements.keysContainer.appendChild(this.createKeys());
     this.elements.keys = this.elements.keysContainer.querySelectorAll('.keyboard__key');
 
@@ -49,9 +49,9 @@ const Keyboard = {
     // Automatically use keyboard for elements with .use-keyboard-input
     document.querySelectorAll('.use-keyboard-input').forEach((element) => {
       element.addEventListener('focus', () => {
-        this.open(element.val, (currentval) => {
+        this.open(element.value, (currentValue) => {
           // eslint-disable-next-line no-param-reassign
-          element.val = currentval;
+          element.value = currentValue;
         });
       });
     });
@@ -195,7 +195,8 @@ const Keyboard = {
 
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
-              this.prop.val = this.prop.val.substring(0, this.prop.val.length - 1);
+              // eslint-disable-next-line max-len
+              this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
               this.triggerEvent('oninput');
             });
 
@@ -212,7 +213,7 @@ const Keyboard = {
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
               this.toggleCapsLock();
-              keyElement.classList.toggle('keyboard__key--active', this.prop.capsLock);
+              keyElement.classList.toggle('keyboard__key--active', this.properties.capsLock);
             });
 
             keyElement.addEventListener('mouseup', () => {
@@ -227,7 +228,7 @@ const Keyboard = {
 
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
-              this.prop.val += '\n';
+              this.properties.value += '\n';
               this.triggerEvent('oninput');
             });
 
@@ -242,7 +243,7 @@ const Keyboard = {
 
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
-              this.prop.val += ' ';
+              this.properties.value += ' ';
               this.triggerEvent('oninput');
             });
 
@@ -257,7 +258,7 @@ const Keyboard = {
 
             keyElement.addEventListener('mousedown', (event) => {
               keyElement.classList.add('keyboard__key--dark');
-              this.prop.val += '    ';
+              this.properties.value += '    ';
               event.preventDefault();
               this.triggerEvent('oninput');
             });
@@ -311,7 +312,7 @@ const Keyboard = {
 
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
-              this.prop.val += this.prop.capsLock
+              this.properties.value += this.properties.capsLock
                 ? key.toUpperCase() : key.toLowerCase();
               this.triggerEvent('oninput');
             });
@@ -347,10 +348,10 @@ const Keyboard = {
           //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           // });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, val] of Object.entries(enShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = val;
+          for (const [key, value] of Object.entries(enShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
           }
-          // this._lettersUp();
+          this.lettersUp();
         };
         useShift();
       } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
@@ -360,11 +361,11 @@ const Keyboard = {
           //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           // });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, val] of Object.entries(ruShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = val;
+          for (const [key, value] of Object.entries(ruShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
           }
 
-        // this._lettersUp();
+          this.lettersUp();
         };
         useShift();
       }
@@ -372,50 +373,53 @@ const Keyboard = {
       if (event.code === 'Tab') {
         this.textarea = document.querySelector('textarea');
         const indexСarriage = this.elements.textarea.selectionStart;
-        const text = this.textarea.val;
-        this.textarea.val = [...text.slice(0, indexСarriage), '    ', ...text.slice(indexСarriage)].join('');
+        const text = this.textarea.value;
+        this.textarea.value = [...text.slice(0, indexСarriage), '    ', ...text.slice(indexСarriage)].join('');
         this.textarea.selectionEnd = indexСarriage + 4;
         event.preventDefault();
       }
 
       if (event.code === 'Backspace') {
-        this.prop.val = this.prop.val.substring(0, this.prop.val.length - 1);
+        // eslint-disable-next-line max-len
+        this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
         // this._triggerEvent('oninput');
       } else if (event.code === 'CapsLock') {
         this.toggleCapsLock();
         pressedKey.classList.toggle('keyboard__key--active');
       } else if (event.code === 'Enter') {
-        this.prop.val += '\n';
+        this.properties.value += '\n';
       } else if (event.code === 'Space') {
-        this.prop.val += ' ';
+        this.properties.value += ' ';
       }
     });
 
     document.addEventListener('keyup', (event) => {
       const unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
       unPressedKey.classList.remove('keyboard__key--dark');
-      if (event.code === 'ShiftLeft' && localStorage.getItem('lang') === 'en') {
+      if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'en') {
         const useShift = () => {
           // const entries = Object.entries(enUnShift);
           // entries.forEach((el) => {
           //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           // });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, val] of Object.entries(enUnShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = val;
+          for (const [key, value] of Object.entries(enUnShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
           }
+          this.lettersDown();
         };
         useShift();
-      } else if (event.code === 'ShiftLeft' && localStorage.getItem('lang') === 'ru') {
+      } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
           // const entries = Object.entries(ruUnShift);
           // entries.forEach((el) => {
           //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
           // });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, val] of Object.entries(ruUnShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = val;
+          for (const [key, value] of Object.entries(ruUnShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
           }
+          this.lettersDown();
         };
         useShift();
       }
@@ -425,6 +429,19 @@ const Keyboard = {
     return fragment;
   },
 
+  lettersUp() {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key of this.elements.keys) {
+      if (key.childElementCount === 0) key.textContent = key.textContent.toUpperCase();
+    }
+  },
+
+  lettersDown() {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key of this.elements.keys) {
+      if (key.childElementCount === 0) key.textContent = key.textContent.toLowerCase();
+    }
+  },
 
   changeLang() {
     const lang = localStorage.getItem('lang');
@@ -434,30 +451,30 @@ const Keyboard = {
 
   triggerEvent(handlerName) {
     if (typeof this.eventHandlers[handlerName] === 'function') {
-      this.eventHandlers[handlerName](this.prop.val);
+      this.eventHandlers[handlerName](this.properties.value);
     }
   },
 
   toggleCapsLock() {
-    this.prop.capsLock = !this.prop.capsLock;
+    this.properties.capsLock = !this.properties.capsLock;
     // eslint-disable-next-line no-restricted-syntax
     for (const key of this.elements.keys) {
       if (key.childElementCount === 0) {
-        key.textContent = this.prop.capsLock
+        key.textContent = this.properties.capsLock
           ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
       }
     }
   },
 
-  open(initialval, oninput, onclose) {
-    this.prop.val = initialval || '';
+  open(initialValue, oninput, onclose) {
+    this.properties.value = initialValue || '';
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
     this.elements.main.classList.remove('keyboard--hidden');
   },
 
   close() {
-    this.prop.val = '';
+    this.properties.value = '';
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
     this.elements.main.classList.add('keyboard--hidden');
