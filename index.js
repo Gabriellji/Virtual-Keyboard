@@ -87,6 +87,91 @@ const Keyboard = {
       'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
     ];
 
+    const enShift = {
+      'Backquote': '~',
+      'Digit1': '!',
+      'Digit2': '@',
+      'Digit3': '#',
+      'Digit4': '$',
+      'Digit5': '%',
+      'Digit6': '^',
+      'Digit7': '&',
+      'Digit8': '*',
+      'Digit9': '(',
+      'Digit0': ')',
+      'Minus': '_',
+      'Equal': '+',
+      'BracketLeft': '{',
+      'BracketRight': '}',
+      'Backslash': '|',
+      'Semicolon': ':',
+      'Quote': '"',
+      'Comma': '<',
+      'Period': '>',
+      'Slash': '?',
+  };
+  
+  const ruShift = {
+      'Digit1': '!',
+      'Digit2': '"',
+      'Digit3': '№',
+      'Digit4': ';',
+      'Digit5': '%',
+      'Digit6': ':',
+      'Digit7': '?',
+      'Digit8': '*',
+      'Digit9': '(',
+      'Digit0': ')',
+      'Minus': '_',
+      'Equal': '+',
+      'Backslash': '/',
+      'Slash': ',',
+  };
+
+  const enUnShift = {
+    'Backquote': '`',
+    'Digit1': '1',
+    'Digit2': '2',
+    'Digit3': '3',
+    'Digit4': '4',
+    'Digit5': '5',
+    'Digit6': '6',
+    'Digit7': '7',
+    'Digit8': '8',
+    'Digit9': '9',
+    'Digit0': '0',
+    'Minus': '-',
+    'Equal': '=',
+    'BracketLeft': '[',
+    'BracketRight': ']',
+    'Backslash': '/',
+    'Semicolon': ';',
+    'Quote': '`',
+    'Comma': ',',
+    'Period': '.',
+    'Slash': '/',
+  };
+
+  const ruUnShift = {
+    'Digit1': '1',
+    'Digit2': '2',
+    'Digit3': '3',
+    'Digit4': '4',
+    'Digit5': '5',
+    'Digit6': '6',
+    'Digit7': '7',
+    'Digit8': '8',
+    'Digit9': '9',
+    'Digit0': '0',
+    'Minus': '-',
+    'Equal': '=',
+    'Backslash': '/',
+    'Slash': '.',
+  }
+
+  // const signs = { enShift, ruShift };
+  
+
     // Creates HTML for an icon
     const createIconHTML = (iconName) => `<i class='material-icons'>${iconName}</i>`;
 
@@ -102,8 +187,7 @@ const Keyboard = {
         keyElement.innerText = keyLayout[index];
 
         keyElement.setAttribute('type', 'button');
-        keyElement.classList.add('keyboard__key');
-
+        keyElement.classList.add('keyboard__key');      
 
         switch (key) {
           case 'Backspace':
@@ -188,6 +272,7 @@ const Keyboard = {
             keyElement.classList.add('keyboard__key--tight');
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
+              this.useShift();
             });
 
             keyElement.addEventListener('mouseup', () => {
@@ -256,6 +341,29 @@ const Keyboard = {
         document.location.reload(true);
         // this.init();
       }
+      if (event.shiftKey && localStorage.getItem('lang') === 'en') {
+        console.log('shiftkey');
+        const useShift = () => {
+          const entries = Object.entries(enShift);
+          entries.forEach((el) => {
+              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
+      
+          // this._lettersUp();
+      }
+      useShift();
+    } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
+      const useShift = () => {
+        const entries = Object.entries(ruShift);
+        entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+        });
+    
+        // this._lettersUp();
+    }
+    useShift();
+    }
+
       if (event.code === 'Tab') {
         this.textarea = document.querySelector('textarea');
         const indexСarriage = this.elements.textarea.selectionStart;
@@ -281,13 +389,32 @@ const Keyboard = {
     document.addEventListener('keyup', (event) => {
       const unPressedKey = document.querySelector(`button[data-code = ${event.code}]`);
       unPressedKey.classList.remove('keyboard__key--dark');
+      if (event.code ==='ShiftLeft' && localStorage.getItem('lang') === 'en') {
+        console.log('upp');
+        // document.location.reload(true);
+        const useShift = () => {
+          const entries = Object.entries(enUnShift);
+          entries.forEach((el) => {
+              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
+      }
+      useShift();
+      } else if (event.code ==='ShiftLeft' && localStorage.getItem('lang') === 'ru') {
+        const useShift = () => {
+          const entries = Object.entries(ruUnShift);
+          entries.forEach((el) => {
+              document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
+      }
+      useShift();
+      }
     });
 
     setKeyboard();
     return fragment;
   },
 
-
+ 
   changeLang() {
     const lang = localStorage.getItem('lang');
     localStorage.setItem('lang', lang === 'en' ? 'ru' : 'en');
