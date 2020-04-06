@@ -1,5 +1,5 @@
 if (localStorage.getItem('lang') === null) {
-  localStorage.getItem('lang', 'en');
+  localStorage.setItem('lang', 'en');
 }
 
 const Keyboard = {
