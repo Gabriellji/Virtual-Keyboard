@@ -33,7 +33,7 @@ const Keyboard = {
 
     // Setup main elements
     this.elements.textareaContainer.classList.add('textarea');
-    this.elements.main.classList.add('keyboard', '1keyboard--hidden');
+    this.elements.main.classList.add('keyboard');
     this.elements.textarea.classList.add('use-keyboard-input');
     this.elements.keysContainer.classList.add('keyboard__keys');
     this.elements.textarea.setAttribute('placeholder', 'Hello stranger and Welcom to use Virtual Keyboard! Press left ALT SHIFT combination to switch beetwen languages...');
@@ -450,14 +450,12 @@ const Keyboard = {
     this.properties.value = initialValue || '';
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.remove('keyboard--hidden');
   },
 
   close() {
     this.properties.value = '';
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
-    this.elements.main.classList.add('keyboard--hidden');
   },
 
 };
