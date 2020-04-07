@@ -192,7 +192,6 @@ const Keyboard = {
           case 'Backspace':
             keyElement.classList.add('keyboard__key--wide');
             keyElement.innerHTML = createIconHTML('backspace');
-
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
               // eslint-disable-next-line max-len
@@ -339,31 +338,22 @@ const Keyboard = {
       if (event.shiftKey && event.altKey) {
         this.changeLang();
         document.location.reload(true);
-        // this.init();
       }
       if (event.shiftKey && localStorage.getItem('lang') === 'en') {
         const useShift = () => {
-          const entries = Object.entries(enShift);
-          entries.forEach((el) => {
-            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          });
           // eslint-disable-next-line no-restricted-syntax
-          // for (const [key, value] of Object.entries(enShift)) {
-          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          // }
+          for (const [key, value] of Object.entries(enShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          }
           this.lettersUp();
         };
         useShift();
       } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
-          const entries = Object.entries(ruShift);
-          entries.forEach((el) => {
-            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          });
           // eslint-disable-next-line no-restricted-syntax
-          // for (const [key, value] of Object.entries(ruShift)) {
-          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          // }
+          for (const [key, value] of Object.entries(ruShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          }
           this.lettersUp();
         };
         useShift();
@@ -381,7 +371,6 @@ const Keyboard = {
       if (event.code === 'Backspace') {
         // eslint-disable-next-line max-len
         this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-        // this._triggerEvent('oninput');
       } else if (event.code === 'CapsLock') {
         this.toggleCapsLock();
         pressedKey.classList.toggle('keyboard__key--active');
@@ -397,27 +386,19 @@ const Keyboard = {
       unPressedKey.classList.remove('keyboard__key--dark');
       if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'en') {
         const useShift = () => {
-          const entries = Object.entries(enUnShift);
-          entries.forEach((el) => {
-            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          });
           // eslint-disable-next-line no-restricted-syntax
-          // for (const [key, value] of Object.entries(enUnShift)) {
-          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          // }
+          for (const [key, value] of Object.entries(enUnShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          }
           this.lettersDown();
         };
         useShift();
       } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
-          const entries = Object.entries(ruUnShift);
-          entries.forEach((el) => {
-            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          });
           // eslint-disable-next-line no-restricted-syntax
-          // for (const [key, value] of Object.entries(ruUnShift)) {
-          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          // }
+          for (const [key, value] of Object.entries(ruUnShift)) {
+            document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          }
           this.lettersDown();
         };
         useShift();
