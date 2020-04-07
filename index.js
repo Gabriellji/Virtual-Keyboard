@@ -343,28 +343,27 @@ const Keyboard = {
       }
       if (event.shiftKey && localStorage.getItem('lang') === 'en') {
         const useShift = () => {
-          // const entries = Object.entries(enShift);
-          // entries.forEach((el) => {
-          //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          // });
+          const entries = Object.entries(enShift);
+          entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, value] of Object.entries(enShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          }
+          // for (const [key, value] of Object.entries(enShift)) {
+          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          // }
           this.lettersUp();
         };
         useShift();
       } else if (event.shiftKey && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
-          // const entries = Object.entries(ruShift);
-          // entries.forEach((el) => {
-          //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          // });
+          const entries = Object.entries(ruShift);
+          entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, value] of Object.entries(ruShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          }
-
+          // for (const [key, value] of Object.entries(ruShift)) {
+          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          // }
           this.lettersUp();
         };
         useShift();
@@ -398,27 +397,27 @@ const Keyboard = {
       unPressedKey.classList.remove('keyboard__key--dark');
       if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'en') {
         const useShift = () => {
-          // const entries = Object.entries(enUnShift);
-          // entries.forEach((el) => {
-          //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          // });
+          const entries = Object.entries(enUnShift);
+          entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, value] of Object.entries(enUnShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          }
+          // for (const [key, value] of Object.entries(enUnShift)) {
+          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          // }
           this.lettersDown();
         };
         useShift();
       } else if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && localStorage.getItem('lang') === 'ru') {
         const useShift = () => {
-          // const entries = Object.entries(ruUnShift);
-          // entries.forEach((el) => {
-          //   document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
-          // });
+          const entries = Object.entries(ruUnShift);
+          entries.forEach((el) => {
+            document.querySelector(`button[data-code="${el[0]}"]`).textContent = el[1];
+          });
           // eslint-disable-next-line no-restricted-syntax
-          for (const [key, value] of Object.entries(ruUnShift)) {
-            document.querySelector(`button[data-code="${key}"]`).textContent = value;
-          }
+          // for (const [key, value] of Object.entries(ruUnShift)) {
+          //   document.querySelector(`button[data-code="${key}"]`).textContent = value;
+          // }
           this.lettersDown();
         };
         useShift();
