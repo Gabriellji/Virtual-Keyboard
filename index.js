@@ -271,7 +271,6 @@ const Keyboard = {
             keyElement.classList.add('keyboard__key--tight');
             keyElement.addEventListener('mousedown', () => {
               keyElement.classList.add('keyboard__key--dark');
-              this.useShift();
             });
 
             keyElement.addEventListener('mouseup', () => {
