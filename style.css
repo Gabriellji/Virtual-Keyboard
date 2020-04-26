@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap');
+
+* {
+    font-family: 'Ubuntu Mono', monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textarea {
+    display: flex;
+    width: 990px;
+    margin: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+.keyboard {
+    width: 1000px;
+    padding: 5px 0;
+    background: #0f917f;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    transition: bottom .4s;
+}
+
+.use-keyboard-input {
+    width: 100%;
+    height: 160px;
+    padding: 10px;
+    resize: none;
+    border: 0;
+    border-radius: 8px;
+    outline: none;
+    font-size: 17px;
+}
+
+.use-keyboard-input::-moz-focus-inner {
+    border: 0;
+}
+
+.keyboard__keys {
+    text-align: center;
+}
+
+.keyboard__key {
+    height: 45px;
+    width: 6%;
+    max-width: 90px;
+    margin: 3px;
+    border-radius: 4px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    font-size: 1.05rem;
+    outline: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    transition: all 0.25s linear;
+}
+
+.keyboard__key:active {
+    background: rgba(255, 255, 255, 0.12);
+    transition: all 1s ease-out;
+}
+
+.keyboard__key--wide {
+    width: 12%;
+}
+.keyboard__key--tight {
+    width: 8%;
+}
+.keyboard__key--extra-wide {
+    width: 36%;
+    max-width: 500px;
+}
+
+.keyboard__key--activatable::after {
+    content: "";
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+}
+
+.keyboard__key--active::after {
+    background: #ff004c;
+    box-shadow: 0px 0px 8px #ff004c;
+}
+
+.keyboard__key--dark {
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-size: 1.40rem;
+    border-radius: 8px;
+    animation-name: test 1s linear;
+    animation: blur 1s ease-out;
+    text-shadow: 0px 0px 15px #fff, 0px 0px 17px #fff;
+}
+
+@keyframes blur {
+    from {
+      text-shadow:0px 0px 10px #fff,
+        0px 0px 10px #fff, 
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 25px #fff,
+        0px 0px 50px #fff,
+        0px 0px 50px #fff,
+        0px 0px 50px #7B96B8,
+        0px 0px 150px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px 10px 100px #7B96B8,
+        0px -10px 100px #7B96B8,
+        0px -10px 100px #7B96B8;
+    }
+  }
+
+  @keyframes test {
+    from{
+        font-size:1.05rem;
+        font-size:1.10rem;
+        font-size:1.20rem;
+        font-size:1.30rem;
+    }
+    to{
+        font-size: 1.40rem;}
+    }
+  
